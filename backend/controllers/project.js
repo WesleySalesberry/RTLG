@@ -43,6 +43,7 @@ export const allProjects = async (req, res, next) => {
  * @access Public
  */
 export const getTopProjects = async (req, res, next) => {
+
     const projects = await Project.find({}).sort({ rating: -1 }).limit(3).populate({
       path: 'student',
       select: "-hash -salt -role"
@@ -148,10 +149,20 @@ export const updateProject = async (req, res, next) => {
 /**
  * @desc Delete a project
  * @route GET /api/v1/project/:id
- * @access Private/Admin
+ * @access Private/Student
  */
 export const deleteProject = async (req, res, next) => {
   try {
+
+    console.log(req.params.id)
+    User.findByIdAndUpdate(req.user._id, {
+      $pull: {
+        projects: req.params.id
+      },
+    }, (error) => {
+      if(error) console.log(error)
+    })
+
 
     await Project.findByIdAndRemove({ _id: req.params.id })
 
