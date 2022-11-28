@@ -3,7 +3,6 @@ import { RegisterPage } from "./component/Forms/Register";
 import { AdminRoute } from "./component/SecureRoutes/AdminRoute";
 import { StudentRoute } from "./component/SecureRoutes/StudentRoute";
 import { StudentTable } from "./component/Tables/StudentTable";
-// import { UserContext, UserProvider } from "./Context/user";
 import { AllProjectsPage } from "./pages/AllProjects";
 
 import { LandingPage } from './pages/LandingPage'
