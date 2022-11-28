@@ -1,4 +1,5 @@
 import { User } from '../models/User.js'
+import { Project } from '../models/Project.js'
 import generateToken from '../utils/token.js'
 
 import cloudinary from '../configs/cloudinary.js'
@@ -183,6 +184,10 @@ export const removeUser = async (req, res, next) => {
         success: false,
         message: 'User not found'
       }) 
+    }
+
+    for(let x = 0; x < user.projects.length; x++){
+      await Project.findByIdAndRemove({ _id: user.projects[x]._id })
     }
 
     await User.findByIdAndRemove({ _id: req.params.id })
