@@ -1,0 +1,89 @@
+.card-width {
+  max-width: 540px;
+}
+
+.showcase {
+  background-image: url('../images/LTGbackground.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100%;
+  height: 75vh;
+  position: relative;
+}
+
+.section-row {
+  margin-bottom: 6rem
+}
+
+.section-title {
+  color: #434E5E;
+  margin-bottom: 2rem
+}
+
+.filters {
+  list-style: none;
+  font-size: 0.875rem
+}
+
+.filters .type {
+  display: inline-block;
+  padding: 0.275rem 0.25rem;
+  cursor: pointer;
+  margin-right: 2rem;
+  color: #8f8f8f;
+  font-weight: bold
+}
+
+.filters .type:last-child {
+  margin-right: 0
+}
+
+.filters .type.active {
+  border-top: 2px solid #5D6BA7;
+  color: #5D6BA7;
+  font-weight: bold
+}
+
+.filters .type.active:hover {
+  border-top: 2px solid #5D6BA7
+}
+
+.filters .type:hover {
+  color: #292929
+}
+
+.icon {
+  font-size: 40px;
+}
+
+.node {
+  color: #3C873A;
+}
+
+.react {
+  color: #61DBFB;
+}
+
+.java {
+  color: #f89820;
+}
+
+.sass {
+  color: #cc6699
+}
+
+.css {
+  color: #2965f1;
+}
+
+.html {
+  color: #f06529;
+}
+
+.angular {
+  color: #a6120d
+}
+
+.python {
+  color: #FFD43B;
+}
