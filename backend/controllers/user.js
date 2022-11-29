@@ -139,7 +139,7 @@ export const user = async (req, res, next) => {
 export const updateUser = async (req, res, next) => {
   console.log(req.body)
   try {
-    if(req.file !== null){
+    if(req.files !== null){
       const userImage = req.files.image
 
       if(!userImage.mimetype.startsWith("image")){
