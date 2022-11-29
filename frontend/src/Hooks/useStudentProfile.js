@@ -6,13 +6,13 @@ import { useUserContext } from "./useUserContext";
 export const useStudentProfile = () => {
   const [ error, setError ] = useState(null)
   const [ isLoading, setIsLoading ] = useState(false)
-  const [ data, setData ] = useState(null);
   const { dispatch } = useUserContext();
 
   const studentProfile = async () => {
     setIsLoading(true)
 
     const data = await User.privateUser.userProfile()
+
     if(data.success === true){
       setStorage('user', data.data)
       dispatch({ type: 'PROFILE', payload: data.data})
@@ -21,8 +21,7 @@ export const useStudentProfile = () => {
     }
 
     setIsLoading(false)
-
   }
 
-  return { studentProfile, data, isLoading, error }
+  return { studentProfile, isLoading, error }
 }
