@@ -42,7 +42,7 @@ export class Base {
         return await this.#fetchData(endpoint, {
             ...opt,
             method: 'POST',
-            body: new FormData(body)
+            body: JSON.stringify(body)
         })
     }
 
@@ -51,6 +51,14 @@ export class Base {
             ...opt,
             method: 'PUT',
             body: JSON.stringify(body)
+        })
+     }
+
+     async imagePut(endpoint, img, opt = {}) {
+        return await this.#fetchData(endpoint, {
+            ...opt,
+            method: 'PUT',
+            body: img
         })
      }
 
