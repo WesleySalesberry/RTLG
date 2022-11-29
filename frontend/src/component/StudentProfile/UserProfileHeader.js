@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom"
 import { useDeleteUser } from "../../Hooks/useDelete"
+import { PROFILE, STUDENT, UPDATE } from "../../utils/paths"
 
-export const ProfileHeader = ({name, img, description }) => {
+export const ProfileHeader = ({name, img, description, email }) => {
 	const { deleteUser, isLoading, error } = useDeleteUser()
 
 
@@ -13,11 +15,26 @@ export const ProfileHeader = ({name, img, description }) => {
 			  </div>
 				<div className="col text-center text-md-start">
 					<div className="lead">Hello, my name is</div>
-					<h2 className="mt-0 display-4 font-weight-bold">{name}</h2>
-					<div className="mb-3">{ description }</div>
+					<a
+						href={`mailto:${email}`}
+					>
+						<h2 className="mt-0 display-4 font-weight-bold">{name}</h2>
+					</a>
+					{
+						description ?
+							<div className="mb-3">{ description }</div>
+						:
+						  <p className="mb-3">User hasn't added an about me section yet</p>
+					}
+					{/* <div className="mb-3">{ description }</div> */}
 					<div className="row">
 						<div className="col-md-4">
-							<a className="btn btn-secondary font-weight-bold theme-btn-cta" href="contact.html">Update Profile</a>
+							<Link
+								className="btn btn-secondary font-weight-bold theme-btn-cta"
+								to={`/${STUDENT}/${UPDATE}/${PROFILE}`} 
+							>
+								Update Profile
+							</Link>
 						</div>
 						<div className="col-md-4">
 							<a className="btn btn-secondary font-weight-bold theme-btn-cta" href="contact.html">Add A Project</a>
