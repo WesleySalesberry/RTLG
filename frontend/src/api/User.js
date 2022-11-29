@@ -22,7 +22,7 @@ class User extends Base {
     return {
       userProfile: () => this.get(`${USER}/${PROFILE}`),
       updateUser: (id, body) => this.update(`${USER}/${id}`, body),
-      deleteUser: (id) => this.delete(`${USER}/${id}`)
+      deleteUser: () => this.delete(`${USER}/${PROFILE}`)
     }
   }
 
