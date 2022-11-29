@@ -45,6 +45,41 @@ export const login = async (req, res, next) => {
 }
 
 /**
+ * @desc   Returns all users or by keyword
+ * @route  GET /api/v1/user?keyword=
+ * @route  GET /api/v1/user?keyword=student
+ * @route  GET /api/v1/user?keyword=user
+ * @route  GET /api/v1/user?keyword=admin
+ * @access Public
+ */
+export const allUsers = async (req, res, next) => {
+
+  const pageSize = 10
+  const page = Number(req.query.pageNumber) || 1
+
+  const keyword = req.query.keyword
+        ? {
+            role: {
+                $regex: req.query.keyword,
+                $options: 'i',
+            },
+        }
+        : ''
+
+  const count = await User.countDocuments({ ...keyword })
+  const projects = await User.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+    .select("-hash").select("-salt").select("-projects").select("-image").select("-language").select("-description")
+
+  res.status(200).json({
+    success: true,
+    count: count,
+    data: projects
+  })
+}
+
+/**
  * @desc   Post a new user
  * @route  POST /api/v1/user/register
  * @access Public
@@ -79,24 +114,6 @@ export const getUser = async (req, res, next) => {
 }
 
 /**
- * @desc   Returns all current user
- * @route  GET /api/v1/user
- * @access Admin
-**/
-export const allUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({ role: "user" }).select('-hash').select('-salt')
-    res.status(201).json({
-      success: true,
-      count: users.length,
-      data: users
-    })
-  } catch (error) {
-    next(error)
-  }
-}
-
-/**
  * @desc   Returns user data
  * @route  GET /api/v1/user/profile
  * @access Private/User
@@ -108,24 +125,6 @@ export const user = async (req, res, next) => {
     res.status(201).json({
       success: true,
       data: user
-    })
-  } catch (error) {
-    next(error)
-  }
-}
-
-/**
- * @desc   Returns all student user
- * @route  GET /api/v1/user/student
- * @access Admin
-**/
-export const students = async (req, res, next) => {
-  try {
-    const users = await User.find({ role: "student" }).select('-hash').select('-salt')
-    res.status(201).json({
-      success: true,
-      count: users.length,
-      data: users
     })
   } catch (error) {
     next(error)
@@ -173,7 +172,7 @@ export const updateUser = async (req, res, next) => {
 /**
  * @desc   Deletes a user
  * @route  GET /api/v1/user/:id
- * @access Student/Admin
+ * @access Admin
 **/
 export const removeUser = async (req, res, next) => {
   try {
@@ -191,6 +190,37 @@ export const removeUser = async (req, res, next) => {
     }
 
     await User.findByIdAndRemove({ _id: req.params.id })
+
+    res.status(201).json({
+      success: true,
+      data: "User deleted"
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+/**
+ * @desc   Use when a user/student wants to delete their profile
+ * @route  GET /api/v1/user/profile
+ * @access Student/User
+**/
+export const userRemove = async (req, res, next) => {
+  try {
+    const user = await User.findById({ _id: req.user._id })
+
+    if(!user){
+      return res.status(401).json({
+        success: false,
+        message: 'User not found'
+      }) 
+    }
+
+    for(let x = 0; x < user.projects.length; x++){
+      await Project.findByIdAndRemove({ _id: user.projects[x]._id })
+    }
+
+    await User.findByIdAndRemove({ _id: req.user._id })
 
     res.status(201).json({
       success: true,
