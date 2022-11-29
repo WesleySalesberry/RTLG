@@ -10,15 +10,6 @@ import { useTokenContext } from "../../Hooks/useTokenContext";
 import { STUDENT, PROFILE } from "../../utils/paths";
 
 export const Login = () => {
-  const navigate = useNavigate()
-  const { isAuthenticated } = useTokenContext();
-
-  useEffect(() => {
-    if(isAuthenticated){
-      redirect(`/${STUDENT}/${PROFILE}`)
-    }
-  }, [isAuthenticated])
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
