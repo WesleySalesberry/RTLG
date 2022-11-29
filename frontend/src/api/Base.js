@@ -46,7 +46,21 @@ export class Base {
         })
     }
 
-    async update(endpoint, opt = {}) { }
+    async put(endpoint, body, opt = {}) {
+        return await this.#fetchData(endpoint, {
+            ...opt,
+            method: 'PUT',
+            body: JSON.stringify(body)
+        })
+     }
+
+     async imagePut(endpoint, img, opt = {}) {
+        return await this.#fetchData(endpoint, {
+            ...opt,
+            method: 'PUT',
+            body: img
+        })
+     }
 
     async delete(endpoint, opt = {}) { 
         return await this.#fetchData(endpoint, {

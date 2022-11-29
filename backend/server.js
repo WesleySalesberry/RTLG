@@ -16,6 +16,7 @@ connectDB()
 const app = express()
 
 app.use(cors())
+app.use(fileupload({ useTempFiles: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -30,8 +31,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('combined'))
 }
 
-app.use(fileupload({ useTempFiles: true }));
-app.use(express.json())
+
 
 import projects from './routes/project.js'
 import users from './routes/user.js'

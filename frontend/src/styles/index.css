@@ -87,3 +87,8 @@
 .python {
   color: #FFD43B;
 }
+
+.textarea {
+  resize: none;
+  height: 250px
+}

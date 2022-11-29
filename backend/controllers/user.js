@@ -133,13 +133,15 @@ export const user = async (req, res, next) => {
 
 /**
  * @desc   Updates a user
- * @route  GET /api/v1/user/:id
+ * @route  GET /api/v1/student/update/profile
  * @access Student
 **/
 export const updateUser = async (req, res, next) => {
+  console.log(req.body)
   try {
     if(req.files !== null){
       const userImage = req.files.image
+
       if(!userImage.mimetype.startsWith("image")){
         res.status(401).json({
           success: false,
