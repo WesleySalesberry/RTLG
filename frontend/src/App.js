@@ -8,9 +8,10 @@ import { AllProjectsPage } from "./pages/AllProjects";
 import { LandingPage } from './pages/LandingPage'
 import { LoginPage } from "./pages/LoginPage";
 import { UserPage } from "./pages/private/UserPage";
+import { UserUpdatePage } from "./pages/private/UserUpdatePage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { ProjectPage } from "./pages/Project";
-import { LOGIN, PROFILE, PROJECT, REGISTER, STUDENT } from "./utils/paths";
+import { LOGIN, PROFILE, PROJECT, REGISTER, STUDENT, UPDATE } from "./utils/paths";
 
 function App() {
   return (
@@ -33,6 +34,11 @@ function App() {
         <Route path={`/${STUDENT}/${PROFILE}`} element={
           <StudentRoute>
             <UserPage />
+          </StudentRoute>
+        }/>
+        <Route path={`/${STUDENT}/${UPDATE}/${PROFILE}`} element={
+          <StudentRoute>
+            <UserUpdatePage />
           </StudentRoute>
         }/>
         {/* Student Routes Ends */}
