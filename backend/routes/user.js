@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
 
-import { allUsers, getUser, login, register, removeUser, students, updateUser, user, userRemove } from '../controllers/User.js'
+import { allUsers, getUser, login, register, removeUser, updateUser, user, userRemove } from '../controllers/User.js'
 
 import { protect } from '../middleware/protect.js'
 import { authorize } from '../middleware/authorize.js'
@@ -18,9 +18,6 @@ router.route('/profile')
 
 router.route('/register')
   .post(register)
-
-router.route('/students')
-  .get(protect, authorize('admin'), students)
 
 router.route('/:id')
   .get(getUser)
