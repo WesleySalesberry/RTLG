@@ -1,4 +1,10 @@
+import { useDeleteUser } from "../../Hooks/useDelete"
+
 export const ProfileHeader = ({name, img, description }) => {
+	const { deleteUser, isLoading, error } = useDeleteUser()
+
+
+
   return (
     <div className="card">
       <div className="row gx-lg-5 justify-content-center my-3 mx-3">
@@ -17,7 +23,12 @@ export const ProfileHeader = ({name, img, description }) => {
 							<a className="btn btn-secondary font-weight-bold theme-btn-cta" href="contact.html">Add A Project</a>
 						</div>
 						<div className="col-md-4">
-							<a className="btn btn-danger font-weight-bold theme-btn-cta" href="contact.html">Delete Account</a>
+							<span 
+								className="btn btn-danger font-weight-bold theme-btn-cta"
+								onClick={() => deleteUser()} 
+							>
+								Delete Account
+							</span>
 						</div>
 					</div>
 				</div>
