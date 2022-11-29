@@ -42,11 +42,17 @@ export class Base {
         return await this.#fetchData(endpoint, {
             ...opt,
             method: 'POST',
-            body: JSON.stringify(body)
+            body: new FormData(body)
         })
     }
 
-    async update(endpoint, opt = {}) { }
+    async put(endpoint, body, opt = {}) {
+        return await this.#fetchData(endpoint, {
+            ...opt,
+            method: 'PUT',
+            body: JSON.stringify(body)
+        })
+     }
 
     async delete(endpoint, opt = {}) { 
         return await this.#fetchData(endpoint, {
