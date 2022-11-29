@@ -8,11 +8,13 @@ export const useUpdateUser = () => {
   const [ error, setError ] = useState(null);
   const [ isLoading, setIsLoading ] = useState(null);
 
-  const updateUser = async (body) => {
+  const updateUser = async (body, img) => {
     setIsLoading(true)
     const data = await User.privateUser.updateUser(body)
+    const image = await User.privateUser.updateImage(img)
 
     console.log(data)
+    // console.log(image)
 
     if(data.success === true){
       setMessage()

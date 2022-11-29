@@ -8,41 +8,33 @@ import { useUpdateUser } from '../../Hooks/useUpdateUser';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from "../../Hooks/useUserContext"
 
-/**
- * 
- * @returns For Preview 
- * https://www.youtube.com/watch?v=b6Oe2puTdMQ
- */
-
 export const UserUpdateForm = () => {
   const { user } = useUserContext();
 
   const navigate = useNavigate();
   const [ email, setEmail ] = useState(user.email)
   const [ name, setName ] = useState(user.name)
-  const [ file, setFile ] = useState('')
+  const [ img, setImg ] = useState('')
   const [ description, setDescription ] = useState(user.description)
-
-  
 
   const { updateUser, message, error, isLoading }= useUpdateUser();
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    // const body = new FormData(evt.target);
-    // body.append('name', name)
-    // body.append('email', email)
-    // body.append('image', file)
-    // body.append('description', description)
-
     const body = {
       email: email,
       name: name,
-      description: description,
-      file: file
+      description: description
     }
 
-    await updateUser(body);
+    const file = new FormData();
+    file.append('image', file)
+
+    for(let x = 0; x < file.length; x++){
+      console.log(file[x])
+    }
+
+    // await updateUser(body, file);
   }
 
   return (
@@ -80,10 +72,11 @@ export const UserUpdateForm = () => {
           <Form.Label>Choose Your Image: </Form.Label>
           <Form.Control 
             type="file" 
+            accept='.jpeg, .png, .jpg'
             name="imageFile"
-            onChange={(evt) => setFile(evt.target.files[0])}
+            onChange={(evt) => setImg(evt.target.files[0])}
           />
-        </Form.Group>
+        </Form.Group> 
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>About You</Form.Label>
             <Form.Control 
