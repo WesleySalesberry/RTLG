@@ -21,13 +21,13 @@ class User extends Base {
 
     return {
       userProfile: () => this.get(`${USER}/${PROFILE}`),
-      updateUser: (id, body) => this.update(`${USER}/${id}`, body),
+      updateUser: (body) => this.put(`${USER}/${PROFILE}`, body),
       deleteUser: () => this.delete(`${USER}/${PROFILE}`)
     }
   }
 
   /**
-   * @desc Used by only the logged in admin users.
+   * @desc Used by only the admin users.
    * 
    */
   get admin(){
