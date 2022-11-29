@@ -22,6 +22,7 @@ class User extends Base {
     return {
       userProfile: () => this.get(`${USER}/${PROFILE}`),
       updateUser: (body) => this.put(`${USER}/${PROFILE}`, body),
+      updateImage: (img) => this.imagePut(`${USER}/${PROFILE}`, img),
       deleteUser: () => this.delete(`${USER}/${PROFILE}`)
     }
   }
