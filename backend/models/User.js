@@ -47,10 +47,6 @@ const UserSchema = mongoose.Schema({
   slug:{
     type: String
   },
-  about: {
-    type: String,
-    trim: true
-  },
   image: {
     type: String
   },
