@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
 
-import { allProjects, createProject, createReview, deleteProject, getTopProjects, singleProject, updateProject } from '../controllers/project.js'
+import { allProjects, createProject, createReview, deleteProject, getLanguages, getTopProjects, singleProject, updateProject } from '../controllers/project.js'
 
 import { protect } from '../middleware/protect.js'
 import { authorize } from '../middleware/authorize.js'
@@ -9,6 +9,9 @@ import { authorize } from '../middleware/authorize.js'
 router.route('/')
   .get(allProjects)
   .post(protect, authorize('student', 'admin'), createProject)
+
+  router.route('/languages')
+  .get(getLanguages)
 
 router.route('/top')
   .get(getTopProjects)
