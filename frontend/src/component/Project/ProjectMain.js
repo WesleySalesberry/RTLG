@@ -30,7 +30,10 @@ export const ProjectMain = () => {
         <ProjectBackground
           project={project} 
         />
-        <ProjectChallenges />
+        <ProjectChallenges
+          challenges={project.challenges}
+          actions={project.actions} 
+        />
         <ProjectTech
           tech={project.language}
         />

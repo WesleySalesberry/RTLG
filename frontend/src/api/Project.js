@@ -9,6 +9,7 @@ class Project extends Base {
   get project() {
     return{
       allProjects: (language) => this.get(`${PROJECT}?keyword=${language}`),
+      allLanguages: () => this.get(`${PROJECT}/languages`),
       topProjects: () => this.get(`${PROJECT}/${TOP}`),
       singleProject: (id) => this.get(`${PROJECT}/${id}`) 
     }

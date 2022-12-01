@@ -220,5 +220,27 @@ export const createReview = async (req, res, next) => {
   } catch (error) {
     console.log(error)
   }
+}
 
+/**
+ * @desc Fetch all languages
+ * @route GET /api/v1/project/languages
+ * @access Public
+ */
+
+export const getLanguages = async (req, res, next) => {
+  try {
+    const project = await Project.find({}, {
+      language: 1,
+      _id: 1
+    })
+
+    res.status(201).json({
+      success: true,
+      data: project
+    }) 
+
+  } catch (error) {
+    next(error)
+  }
 }

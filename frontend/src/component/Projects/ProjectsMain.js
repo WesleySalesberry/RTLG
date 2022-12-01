@@ -1,34 +1,30 @@
-import { useContext, useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import Container from "react-bootstrap/esm/Container"
 import { useGetProjects } from "../../Hooks/useProjects"
-import { LanguageContext } from "../../Context/LanguageContext"
 import { capitalizeFirstLetter } from "../../utils/helpers"
 import { ProjectCardLayout } from "../Layouts/ProjectCardLayout"
 import { ProjectCard } from "../Cards/ProjectCard"
-import { Projects } from "./Projects"
-import { ProjectSorting } from "./ProjectSorting"
+import { useGetLanguages } from "../../Hooks/useGetLanguages"
 
 export const ProjectMain = () => {
   const [activeId, setActiveId] = useState(0);
-  const [language, setLanguage] = useState('');
+  const [keyword, setKeyword] = useState('');
 
-  const { getProjects, project, isLoading } = useGetProjects(language)
+  const { getLanguages, languages, error } = useGetLanguages();
+  const { getProjects, project, isLoading } = useGetProjects()
 
   const getProject = async (lang, id) => {
     setActiveId(id)
-    setLanguage(lang)
+    setKeyword(lang)
   }
 
-  const languages = project.map((itm) => itm.language)
-                      .flat(1)
-                      .filter((value, index, self) => self.indexOf(value) === index).sort();
-
   useEffect(() => {
-    getProjects()
-  }, [language])
+    getLanguages();
+    getProjects(keyword)
+  }, [keyword])
 
-  const title = language === '' ? "All" : capitalizeFirstLetter(language) 
-  if(project){
+  const title = keyword === '' ? "All" : capitalizeFirstLetter(keyword) 
+  if(!project){
     return <p>Nothing to display</p>
   }else{
     return (
